@@ -1,7 +1,6 @@
 # GitLab CI/CD pipeline for Fintrackr
 stages:
   - build
-  - test
   - deploy
 
 variables:
@@ -11,7 +10,7 @@ services:
   - docker:dind
 
 before_script:
-  - apk add --no-cache docker-compose
+  - apt-get update && apt-get install -y docker-compose openssh-client
 
 build_backend:
   stage: build
@@ -24,8 +23,23 @@ build_backend:
 
 deploy_backend:
   stage: deploy
+  only:
+    - main
   script:
-    - echo "Deploy backend to EC2 or registry here"
+    # Set up SSH key
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
+    - chmod 600 id_rsa
+
+    # Deploy backend on EC2
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
+      cd ~/cashnest &&
+      git pull origin main &&
+      docker-compose down &&
+      docker-compose up -d --build
+      '
+
+    # Cleanup
+    - rm -f id_rsa
   when: manual
 
 build_frontend:
@@ -39,6 +53,20 @@ build_frontend:
 
 deploy_frontend:
   stage: deploy
+  only:
+    - main
   script:
-    - echo "Deploy frontend to EC2 or registry here"
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
+    - chmod 600 id_rsa
+
+    # Deploy frontend on EC2
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
+      cd ~/cashnest &&
+      git pull origin main &&
+      docker-compose down &&
+      docker-compose up -d --build
+      '
+
+    # Cleanup
+    - rm -f id_rsa
   when: manual
