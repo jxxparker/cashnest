@@ -1,55 +1,26 @@
-# GitLab CI/CD pipeline for Fintrackr
+# GitLab CI/CD pipeline for Cashnest
 stages:
-  - build
   - deploy
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-  - docker:dind
-
 before_script:
-  - apt-get update && apt-get install -y docker-compose openssh-client
-
-build_backend:
-  stage: build
-  script:
-    - cd server
-    - docker build -t fintrackr-backend .
-  artifacts:
-    paths:
-      - server
+  - apt-get update && apt-get install -y openssh-client
 
 deploy_backend:
   stage: deploy
   only:
     - main
   script:
-    # Set up SSH key
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-
-    # Deploy backend on EC2
     - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
       cd ~/cashnest &&
       git pull origin main &&
+      cd server &&
       docker-compose down &&
       docker-compose up -d --build
       '
-
-    # Cleanup
     - rm -f id_rsa
   when: manual
-
-build_frontend:
-  stage: build
-  script:
-    - cd client
-    - docker build -t fintrackr-frontend .
-  artifacts:
-    paths:
-      - client
 
 deploy_frontend:
   stage: deploy
@@ -58,15 +29,12 @@ deploy_frontend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-
-    # Deploy frontend on EC2
     - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
       cd ~/cashnest &&
       git pull origin main &&
+      cd client &&
       docker-compose down &&
       docker-compose up -d --build
       '
-
-    # Cleanup
     - rm -f id_rsa
   when: manual
