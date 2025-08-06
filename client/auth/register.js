@@ -11,7 +11,7 @@ registerForm.onsubmit = async (e) => {
   e.preventDefault();
   const email = registerForm.email.value;
   const password = registerForm.password.value;
-  const res = await fetch("/api/auth/register", {
+  const res = await fetch("http://3.229.166.20:4000/api/auth/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),

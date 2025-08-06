@@ -11,7 +11,7 @@ loginForm.onsubmit = async (e) => {
   e.preventDefault();
   const email = loginForm.email.value;
   const password = loginForm.password.value;
-  const res = await fetch("/api/auth/login", {
+  const res = await fetch("http://3.229.166.20:4000/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),

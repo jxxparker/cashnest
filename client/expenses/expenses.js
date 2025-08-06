@@ -6,7 +6,7 @@
 async function fetchExpenses() {
   const token = localStorage.getItem("token");
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
-  const res = await fetch("/api/expenses", { headers });
+  const res = await fetch("http://3.229.166.20:4000/api/expenses", { headers });
   const expenses = await res.json();
   let filteredCategory = window.filteredCategory || null;
   let filteredMonth = window.filteredMonth || null;
@@ -128,7 +128,7 @@ async function fetchExpenses() {
   document.querySelectorAll(".delete-expense-btn").forEach((btn) => {
     btn.onclick = async function () {
       const id = btn.getAttribute("data-id");
-      await fetch(`/api/expenses/${id}`, {
+      await fetch(`http://3.229.166.20:4000/api/expenses/${id}`, {
         method: "DELETE",
         headers,
       });
@@ -144,7 +144,7 @@ document.getElementById("add-expense-form").onsubmit = async function (e) {
   const description = document.getElementById("expense-details").value;
   const category = document.getElementById("expense-category").value;
   const token = localStorage.getItem("token");
-  await fetch("/api/expenses", {
+  await fetch("http://3.229.166.20:4000/api/expenses", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
