@@ -225,34 +225,50 @@ hr {
   /* Navigation adjustments */
   nav {
     flex-direction: column;
-    padding: 1em;
+    padding: 0.8em 1em;
     text-align: center;
-    gap: 1em;
-  }
-
-  .nav-features {
-    position: static;
-    transform: none;
-    gap: 1em;
-    order: 2; /* Put nav features after user info */
+    gap: 0.8em;
   }
 
   .nav-user {
     align-items: center;
     min-width: auto;
-    order: 1; /* Put user info first */
+    order: 1;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1em;
     margin-bottom: 0.5em;
+  }
+
+  .nav-features {
+    position: static;
+    transform: none;
+    gap: 0.8em;
+    order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Theme toggle button - smaller on mobile */
+  #theme-toggle {
+    font-size: 1em !important;
+    padding: 0.3em 0.5em !important;
+    min-width: 32px !important;
   }
 
   nav #nav-username {
-    font-size: 1rem;
-    margin-bottom: 0.5em;
-    padding: 0.4em 1em;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    padding: 0.3em 0.8em;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    white-space: nowrap;
   }
 
   nav button {
-    padding: 0.4em 1em;
+    padding: 0.5em 1em;
     font-size: 0.9rem;
+    border-radius: 8px;
   }
 
   /* Main container */
@@ -310,22 +326,34 @@ hr {
 /* Extra small mobile styles for screens smaller than 480px */
 @media (max-width: 480px) {
   nav {
-    padding: 0.8em;
-    gap: 0.8em;
+    padding: 0.6em 0.8em;
+    gap: 0.6em;
   }
 
   .nav-user {
-    margin-bottom: 0.8em;
+    gap: 0.6em;
+    margin-bottom: 0.4em;
   }
 
   .nav-features {
-    flex-direction: column;
-    gap: 0.5em;
+    gap: 0.6em;
+  }
+
+  nav #nav-username {
+    font-size: 0.8rem;
+    padding: 0.25em 0.6em;
   }
 
   nav button {
-    width: 100%;
-    margin-bottom: 0.3em;
+    padding: 0.4em 0.8em;
+    font-size: 0.85rem;
+    min-height: 36px;
+  }
+
+  #theme-toggle {
+    font-size: 0.9em !important;
+    padding: 0.25em 0.4em !important;
+    min-width: 28px !important;
   }
 
   main {
@@ -488,16 +516,23 @@ hr {
 /* Dark theme specific mobile adjustments */
 @media (max-width: 768px) {
   .dark-theme .nav-user {
-    gap: 0.5em;
+    gap: 1em;
     margin-bottom: 0.5em;
+    flex-direction: row;
   }
 
   .dark-theme #theme-toggle {
-    margin-bottom: 0.3em;
+    font-size: 1em !important;
+    padding: 0.3em 0.5em !important;
+    min-width: 32px !important;
     align-self: center;
   }
 
   .dark-theme .nav-features {
     order: 2;
+  }
+
+  .dark-theme nav #nav-username {
+    background: rgba(255, 255, 255, 0.15);
   }
 }
