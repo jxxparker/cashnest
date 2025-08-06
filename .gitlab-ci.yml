@@ -45,6 +45,6 @@ debug_ssh:
     - echo "✅ EC2_USER: $EC2_USER"
     - echo "✅ EC2_HOST: $EC2_HOST"
     - echo "$SSH_PRIVATE_KEY" > id_rsa
-    - echo "✅ SSH_PRIVATE_KEY loaded with $(wc -l < id_rsa) lines"
+    - line_count=$(wc -l < id_rsa) && echo "✅ SSH_PRIVATE_KEY has $line_count lines"
     - rm id_rsa
   when: manual
