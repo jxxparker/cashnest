@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cashnest</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/png" href="img/download.jpg" />
@@ -13,6 +14,7 @@
         <button onclick="showSection('expenses')">Expenses</button>
       </div>
       <div class="nav-user">
+        <button id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
         <span id="nav-username"></span>
         <button onclick="logout()">Logout</button>
       </div>
@@ -212,6 +214,39 @@
         showSection("auth");
         document.getElementById("auth-message").textContent = "";
       }
+
+      // Theme toggle functionality
+      function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.getElementById("theme-toggle");
+        
+        if (body.classList.contains("dark-theme")) {
+          body.classList.remove("dark-theme");
+          themeToggle.textContent = "🌙";
+          localStorage.setItem("theme", "light");
+        } else {
+          body.classList.add("dark-theme");
+          themeToggle.textContent = "☀️";
+          localStorage.setItem("theme", "dark");
+        }
+      }
+
+      // Initialize theme on page load
+      function initializeTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        const themeToggle = document.getElementById("theme-toggle");
+        
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark-theme");
+          if (themeToggle) themeToggle.textContent = "☀️";
+        } else {
+          document.body.classList.remove("dark-theme");
+          if (themeToggle) themeToggle.textContent = "🌙";
+        }
+      }
+
+      // Call theme initialization when page loads
+      document.addEventListener("DOMContentLoaded", initializeTheme);
     </script>
   </body>
 </html>

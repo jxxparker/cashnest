@@ -36,6 +36,24 @@ nav {
   flex-direction: column;
   align-items: flex-end;
   min-width: 120px;
+  gap: 0.5em;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #1f1f1f !important;
+  font-size: 1.2em;
+  padding: 0.3em 0.6em !important;
+  min-width: 40px;
+  transition: all 0.3s ease;
+  border: none !important;
+  border-radius: 50% !important;
+}
+
+#theme-toggle:hover {
+  background: #f0f0f0 !important;
+  transform: scale(1.1);
 }
 
 nav #nav-username {
@@ -198,4 +216,275 @@ hr {
   margin-top: 1em;
   color: #ff4d4f;
   font-weight: 500;
+}
+
+/* ========== MOBILE RESPONSIVE STYLES ========== */
+
+/* Mobile styles for screens smaller than 768px */
+@media (max-width: 768px) {
+  /* Navigation adjustments */
+  nav {
+    flex-direction: column;
+    padding: 1em;
+    text-align: center;
+  }
+
+  .nav-features {
+    position: static;
+    transform: none;
+    margin-bottom: 1em;
+    gap: 1em;
+  }
+
+  .nav-user {
+    align-items: center;
+    min-width: auto;
+  }
+
+  nav #nav-username {
+    font-size: 1rem;
+    margin-bottom: 0.5em;
+    padding: 0.4em 1em;
+  }
+
+  nav button {
+    padding: 0.4em 1em;
+    font-size: 0.9rem;
+  }
+
+  /* Main container */
+  main {
+    margin: 1em;
+    padding: 1.5em;
+    border-radius: 8px;
+  }
+
+  /* Headings */
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  /* Forms */
+  form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8em;
+  }
+
+  form input {
+    padding: 0.6em 1em;
+    font-size: 1rem;
+    min-height: 44px; /* Minimum touch target size */
+  }
+
+  form button {
+    padding: 0.7em 1.4em;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+
+  /* List items */
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5em;
+    padding: 1em;
+  }
+
+  /* Delete buttons */
+  .delete-btn {
+    padding: 0.4em 1em;
+    font-size: 0.9rem;
+    min-height: 36px;
+    align-self: flex-end;
+  }
+}
+
+/* Extra small mobile styles for screens smaller than 480px */
+@media (max-width: 480px) {
+  nav {
+    padding: 0.8em;
+  }
+
+  .nav-features {
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  nav button {
+    width: 100%;
+    margin-bottom: 0.3em;
+  }
+
+  main {
+    margin: 0.5em;
+    padding: 1em;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  form input,
+  form button {
+    font-size: 1rem;
+    padding: 0.7em 1em;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  nav {
+    padding: 0.5em 1em;
+  }
+  
+  nav #nav-username {
+    font-size: 0.9rem;
+    padding: 0.3em 0.8em;
+  }
+  
+  main {
+    margin: 0.5em;
+    padding: 1em;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1em;
+  }
+}
+
+/* ========== DARK THEME STYLES ========== */
+
+.dark-theme {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.dark-theme nav {
+  background: linear-gradient(90deg, #0a0a0a 60%, #1a1a1a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme nav #nav-username {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+.dark-theme nav button {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border: 1px solid #404040;
+}
+
+.dark-theme nav button:hover {
+  background: #0077ff;
+  color: #fff;
+  border-color: #0077ff;
+}
+
+.dark-theme #theme-toggle {
+  background: #2a2a2a !important;
+  border: 1px solid #404040 !important;
+  font-size: 1.2em;
+  padding: 0.3em 0.6em !important;
+  margin-bottom: 0.5em;
+}
+
+.dark-theme #theme-toggle:hover {
+  background: #404040 !important;
+  transform: scale(1.1);
+}
+
+.dark-theme main {
+  background: #2a2a2a;
+  border: 1px solid #404040;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme h2 {
+  color: #4da6ff;
+}
+
+.dark-theme h3 {
+  color: #e0e0e0;
+}
+
+.dark-theme h4 {
+  color: #b0b0b0;
+}
+
+.dark-theme form input {
+  background: #1a1a1a;
+  border: 1px solid #404040;
+  color: #e0e0e0;
+}
+
+.dark-theme form input:focus {
+  border-color: #0077ff;
+  background: #2a2a2a;
+}
+
+.dark-theme form button {
+  background: #0077ff;
+  color: #fff;
+}
+
+.dark-theme form button:hover {
+  background: #005bb5;
+}
+
+.dark-theme li {
+  background: #1a1a1a;
+  border: 1px solid #404040;
+  color: #e0e0e0;
+}
+
+.dark-theme .delete-btn {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.dark-theme .delete-btn:hover {
+  background: #d9363e;
+}
+
+.dark-theme #networth-username {
+  color: #4da6ff;
+}
+
+.dark-theme hr {
+  border-top: 1px solid #404040;
+}
+
+.dark-theme #auth-message {
+  color: #ff6b6b;
+}
+
+/* Dark theme select styling */
+.dark-theme select {
+  background: #1a1a1a !important;
+  border: 1px solid #404040 !important;
+  color: #e0e0e0 !important;
+}
+
+.dark-theme select option {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+/* Dark theme specific mobile adjustments */
+@media (max-width: 768px) {
+  .dark-theme .nav-user {
+    gap: 0.5em;
+  }
+  
+  .dark-theme #theme-toggle {
+    margin-bottom: 0.3em;
+    align-self: center;
+  }
 }
