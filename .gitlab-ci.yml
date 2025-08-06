@@ -1,5 +1,5 @@
 # GitLab CI/CD pipeline for Cashnest
-# Updated: Use docker-compose for compatibility
+# Updated: Simplified cleanup without prune operations
 stages:
   - deploy
 
