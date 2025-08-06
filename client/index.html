@@ -160,7 +160,7 @@
         const username = document.getElementById("login-username").value;
         const password = document.getElementById("login-password").value;
         try {
-          const res = await fetch("http://localhost:4000/api/auth/login", {
+          const res = await fetch("http://3.229.166.20:4000/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
@@ -185,11 +185,14 @@
         const username = document.getElementById("register-username").value;
         const password = document.getElementById("register-password").value;
         try {
-          const res = await fetch("http://localhost:4000/api/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-          });
+          const res = await fetch(
+            "http://3.229.166.20:4000/api/auth/register",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            }
+          );
           const data = await res.json();
           if (res.ok && data.message) {
             document.getElementById("auth-message").textContent =
