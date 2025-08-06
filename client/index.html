@@ -139,6 +139,7 @@
         document.getElementById("expenses-section").style.display = "none";
         document.getElementById("auth-section").style.display = "none";
         localStorage.setItem("lastSection", section);
+
         if (section === "networth") {
           document.getElementById("networth-section").style.display = "block";
         } else if (section === "expenses") {
@@ -146,13 +147,37 @@
         } else {
           document.getElementById("auth-section").style.display = "block";
         }
+
+        // Ensure theme persists when switching sections
+        setTimeout(() => {
+          initializeTheme();
+        }, 50);
       }
 
       window.onload = function () {
         // Initialize theme first
         initializeTheme();
-        
-        if (localStorage.getItem("token")) {
+
+        const token = localStorage.getItem("token");
+        if (token) {
+          // Try to get username from token or localStorage
+          let username = localStorage.getItem("username");
+          if (!username) {
+            // If no stored username, try to decode from token (basic approach)
+            try {
+              const payload = JSON.parse(atob(token.split(".")[1]));
+              username = payload.username || "User";
+              localStorage.setItem("username", username);
+            } catch (e) {
+              username = "User";
+            }
+          }
+
+          // Set username in navigation
+          document.getElementById(
+            "nav-username"
+          ).textContent = `Hello, ${username}`;
+
           document.getElementById("main-nav").style.display = "block";
           const lastSection = localStorage.getItem("lastSection") || "networth";
           showSection(lastSection);
@@ -175,8 +200,20 @@
           const data = await res.json();
           if (res.ok && data.token) {
             localStorage.setItem("token", data.token);
+            localStorage.setItem("username", username);
+
+            // Set username in navigation
+            document.getElementById(
+              "nav-username"
+            ).textContent = `Hello, ${username}`;
+
+            // Show navigation and switch to networth
             document.getElementById("main-nav").style.display = "block";
             showSection("networth");
+
+            // Reinitialize theme after login
+            initializeTheme();
+
             document.getElementById("auth-message").textContent = "";
           } else {
             document.getElementById("auth-message").textContent =
@@ -215,7 +252,9 @@
 
       function logout() {
         localStorage.removeItem("token");
+        localStorage.removeItem("username");
         document.getElementById("main-nav").style.display = "none";
+        document.getElementById("nav-username").textContent = "";
         showSection("auth");
         document.getElementById("auth-message").textContent = "";
       }
