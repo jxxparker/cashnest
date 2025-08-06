@@ -12,7 +12,7 @@ deploy_backend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git config --global credential.helper store && echo "https://gitlab-ci-token:$CI_JOB_TOKEN@gitlab.com" > ~/.git-credentials && git pull origin main && docker-compose down && docker-compose up -d --build'
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git fetch origin && git reset --hard origin/main && docker compose down --remove-orphans && docker compose up -d --build'
     - rm -f id_rsa
   when: manual
 
@@ -23,7 +23,7 @@ deploy_frontend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git config --global credential.helper store && echo "https://gitlab-ci-token:$CI_JOB_TOKEN@gitlab.com" > ~/.git-credentials && git pull origin main && docker-compose down && docker-compose up -d --build'
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git fetch origin && git reset --hard origin/main && docker compose down --remove-orphans && docker compose up -d --build'
     - rm -f id_rsa
   when: manual
 
