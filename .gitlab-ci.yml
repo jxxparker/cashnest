@@ -39,6 +39,8 @@ deploy_frontend:
 
 debug_ssh:
   stage: deploy
+  only:
+    - main
   script:
     - echo "✅ EC2_USER: $EC2_USER"
     - echo "✅ EC2_HOST: $EC2_HOST"
