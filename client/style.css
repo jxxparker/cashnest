@@ -227,18 +227,21 @@ hr {
     flex-direction: column;
     padding: 1em;
     text-align: center;
+    gap: 1em;
   }
 
   .nav-features {
     position: static;
     transform: none;
-    margin-bottom: 1em;
     gap: 1em;
+    order: 2; /* Put nav features after user info */
   }
 
   .nav-user {
     align-items: center;
     min-width: auto;
+    order: 1; /* Put user info first */
+    margin-bottom: 0.5em;
   }
 
   nav #nav-username {
@@ -308,6 +311,11 @@ hr {
 @media (max-width: 480px) {
   nav {
     padding: 0.8em;
+    gap: 0.8em;
+  }
+
+  .nav-user {
+    margin-bottom: 0.8em;
   }
 
   .nav-features {
@@ -341,17 +349,17 @@ hr {
   nav {
     padding: 0.5em 1em;
   }
-  
+
   nav #nav-username {
     font-size: 0.9rem;
     padding: 0.3em 0.8em;
   }
-  
+
   main {
     margin: 0.5em;
     padding: 1em;
   }
-  
+
   h2 {
     font-size: 1.2rem;
     margin-bottom: 1em;
@@ -481,10 +489,15 @@ hr {
 @media (max-width: 768px) {
   .dark-theme .nav-user {
     gap: 0.5em;
+    margin-bottom: 0.5em;
   }
-  
+
   .dark-theme #theme-toggle {
     margin-bottom: 0.3em;
     align-self: center;
+  }
+
+  .dark-theme .nav-features {
+    order: 2;
   }
 }

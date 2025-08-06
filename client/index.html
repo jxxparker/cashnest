@@ -14,7 +14,9 @@
         <button onclick="showSection('expenses')">Expenses</button>
       </div>
       <div class="nav-user">
-        <button id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+        <button id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+          🌙
+        </button>
         <span id="nav-username"></span>
         <button onclick="logout()">Logout</button>
       </div>
@@ -147,6 +149,9 @@
       }
 
       window.onload = function () {
+        // Initialize theme first
+        initializeTheme();
+        
         if (localStorage.getItem("token")) {
           document.getElementById("main-nav").style.display = "block";
           const lastSection = localStorage.getItem("lastSection") || "networth";
@@ -217,17 +222,20 @@
 
       // Theme toggle functionality
       function toggleTheme() {
+        console.log("Theme toggle clicked!"); // Debug log
         const body = document.body;
         const themeToggle = document.getElementById("theme-toggle");
-        
+
         if (body.classList.contains("dark-theme")) {
           body.classList.remove("dark-theme");
           themeToggle.textContent = "🌙";
           localStorage.setItem("theme", "light");
+          console.log("Switched to light theme");
         } else {
           body.classList.add("dark-theme");
           themeToggle.textContent = "☀️";
           localStorage.setItem("theme", "dark");
+          console.log("Switched to dark theme");
         }
       }
 
@@ -235,7 +243,8 @@
       function initializeTheme() {
         const savedTheme = localStorage.getItem("theme");
         const themeToggle = document.getElementById("theme-toggle");
-        
+        console.log("Initializing theme:", savedTheme); // Debug log
+
         if (savedTheme === "dark") {
           document.body.classList.add("dark-theme");
           if (themeToggle) themeToggle.textContent = "☀️";
@@ -244,9 +253,6 @@
           if (themeToggle) themeToggle.textContent = "🌙";
         }
       }
-
-      // Call theme initialization when page loads
-      document.addEventListener("DOMContentLoaded", initializeTheme);
     </script>
   </body>
 </html>
