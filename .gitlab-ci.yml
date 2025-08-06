@@ -38,3 +38,11 @@ deploy_frontend:
       '
     - rm -f id_rsa
   when: manual
+
+debug_ssh:
+  stage: deploy
+  script:
+    - echo "✅ EC2_USER: $EC2_USER"
+    - echo "✅ EC2_HOST: $EC2_HOST"
+    - echo "$SSH_PRIVATE_KEY" | head -n 2
+  when: manual
