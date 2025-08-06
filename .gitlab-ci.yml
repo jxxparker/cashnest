@@ -12,12 +12,7 @@ deploy_backend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
-      cd ~/cashnest &&
-      git pull origin main &&
-      docker-compose down &&
-      docker-compose up -d --build
-      '
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git pull origin main && docker-compose down && docker-compose up -d --build'
     - rm -f id_rsa
   when: manual
 
@@ -28,12 +23,7 @@ deploy_frontend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
-      cd ~/cashnest &&
-      git pull origin main &&
-      docker-compose down &&
-      docker-compose up -d --build
-      '
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git pull origin main && docker-compose down && docker-compose up -d --build'
     - rm -f id_rsa
   when: manual
 
@@ -42,10 +32,10 @@ debug_ssh:
   only:
     - main
   script:
-    - echo "✅ EC2_USER: $EC2_USER"
-    - echo "✅ EC2_HOST: $EC2_HOST"
+    - echo "EC2_USER is $EC2_USER"
+    - echo "EC2_HOST is $EC2_HOST"
     - echo "$SSH_PRIVATE_KEY" > id_rsa
     - wc -l id_rsa
-    - echo "✅ SSH_PRIVATE_KEY file created successfully"
+    - echo "SSH_PRIVATE_KEY file created successfully"
     - rm id_rsa
   when: manual
