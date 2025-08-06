@@ -1,4 +1,5 @@
 # GitLab CI/CD pipeline for Cashnest
+# Updated: Use docker-compose for compatibility
 stages:
   - deploy
 
@@ -12,9 +13,8 @@ deploy_backend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git fetch origin && git reset --hard origin/main && docker compose down --remove-orphans && docker compose up -d --build'
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git fetch origin && git reset --hard origin/main && docker-compose down && docker container prune -f && docker-compose up -d --build'
     - rm -f id_rsa
-  when: manual
 
 deploy_frontend:
   stage: deploy
@@ -23,9 +23,8 @@ deploy_frontend:
   script:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > id_rsa
     - chmod 600 id_rsa
-    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git fetch origin && git reset --hard origin/main && docker compose down --remove-orphans && docker compose up -d --build'
+    - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST 'cd ~/cashnest && git fetch origin && git reset --hard origin/main && docker-compose down && docker container prune -f && docker-compose up -d --build'
     - rm -f id_rsa
-  when: manual
 
 debug_ssh:
   stage: deploy
