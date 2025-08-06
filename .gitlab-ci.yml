@@ -15,7 +15,6 @@ deploy_backend:
     - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
       cd ~/cashnest &&
       git pull origin main &&
-      cd server &&
       docker-compose down &&
       docker-compose up -d --build
       '
@@ -32,7 +31,6 @@ deploy_frontend:
     - ssh -o StrictHostKeyChecking=no -i id_rsa $EC2_USER@$EC2_HOST '
       cd ~/cashnest &&
       git pull origin main &&
-      cd client &&
       docker-compose down &&
       docker-compose up -d --build
       '
@@ -45,6 +43,7 @@ debug_ssh:
     - echo "✅ EC2_USER: $EC2_USER"
     - echo "✅ EC2_HOST: $EC2_HOST"
     - echo "$SSH_PRIVATE_KEY" > id_rsa
-    - line_count=$(wc -l < id_rsa) && echo "✅ SSH_PRIVATE_KEY has $line_count lines"
+    - wc -l id_rsa
+    - echo "✅ SSH_PRIVATE_KEY file created successfully"
     - rm id_rsa
   when: manual
