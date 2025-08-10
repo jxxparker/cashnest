@@ -14,6 +14,11 @@ package-lock.json
 .env.test.local
 .env.production.local
 
+# Sensitive files
+password.md
+passwords.md
+secrets.md
+
 # Logs
 logs
 *.log
