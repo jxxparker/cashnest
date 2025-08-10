@@ -131,6 +131,7 @@
         <div id="expenses-root"></div>
       </section>
     </main>
+    <script src="config.js"></script>
     <script src="networth/networth.js"></script>
     <script src="expenses/expenses.js"></script>
     <script>
@@ -192,7 +193,7 @@
         const username = document.getElementById("login-username").value;
         const password = document.getElementById("login-password").value;
         try {
-          const res = await fetch("http://3.229.166.20:4000/api/auth/login", {
+          const res = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
@@ -230,7 +231,7 @@
         const password = document.getElementById("register-password").value;
         try {
           const res = await fetch(
-            "http://3.229.166.20:4000/api/auth/register",
+            `${API_URL}/auth/register`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },

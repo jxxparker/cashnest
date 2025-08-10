@@ -3,9 +3,9 @@ async function fetchNetWorth() {
   const token = localStorage.getItem("token");
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
   const [assetsRes, debtsRes, stocksRes] = await Promise.all([
-    fetch("http://3.229.166.20:4000/api/assets", { headers }),
-    fetch("http://3.229.166.20:4000/api/debts", { headers }),
-    fetch("http://3.229.166.20:4000/api/stocks", { headers }),
+    fetch(`${API_URL}/assets`, { headers }),
+    fetch(`${API_URL}/debts`, { headers }),
+    fetch(`${API_URL}/stocks`, { headers }),
   ]);
   const assets = await assetsRes.json();
   const debts = await debtsRes.json();
@@ -61,9 +61,9 @@ async function fetchNetWorth() {
       const id = btn.getAttribute("data-id");
       const type = btn.getAttribute("data-type");
       let url = "";
-      if (type === "asset") url = `http://3.229.166.20:4000/api/assets/${id}`;
-      if (type === "debt") url = `http://3.229.166.20:4000/api/debts/${id}`;
-      if (type === "stock") url = `http://3.229.166.20:4000/api/stocks/${id}`;
+      if (type === "asset") url = `${API_URL}/assets/${id}`;
+      if (type === "debt") url = `${API_URL}/debts/${id}`;
+      if (type === "stock") url = `${API_URL}/stocks/${id}`;
       await fetch(url, { method: "DELETE", headers });
       fetchNetWorth();
     };
@@ -77,7 +77,9 @@ async function fetchUsername() {
   if (!token) return;
   const headers = { Authorization: `Bearer ${token}` };
   try {
-    const res = await fetch("http://3.229.166.20:4000/api/auth/me", { headers });
+    const res = await fetch(`${API_URL}/auth/me`, {
+      headers,
+    });
     if (res.ok) {
       const data = await res.json();
       // Set username only in nav bar for universal display
@@ -96,7 +98,7 @@ document.getElementById("add-asset-form").onsubmit = async function (e) {
   const name = document.getElementById("asset-name").value;
   const value = parseFloat(document.getElementById("asset-value").value);
   const token = localStorage.getItem("token");
-  await fetch("http://3.229.166.20:4000/api/assets", {
+  await fetch(`${API_URL}/assets`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -114,7 +116,7 @@ document.getElementById("add-debt-form").onsubmit = async function (e) {
   const name = document.getElementById("debt-name").value;
   const value = parseFloat(document.getElementById("debt-value").value);
   const token = localStorage.getItem("token");
-  await fetch("http://3.229.166.20:4000/api/debts", {
+  await fetch(`${API_URL}/debts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -132,7 +134,7 @@ document.getElementById("add-stock-form").onsubmit = async function (e) {
   const symbol = document.getElementById("stock-symbol").value;
   const shares = parseFloat(document.getElementById("stock-shares").value);
   const token = localStorage.getItem("token");
-  await fetch("http://3.229.166.20:4000/api/stocks", {
+  await fetch(`${API_URL}/stocks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
